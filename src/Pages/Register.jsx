@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import HOC from "../Component/HOC";
 import { useNavigate } from "react-router";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa6";
+
 
 const Register = () => {
   const [user, setuser] = useState({
@@ -8,6 +11,8 @@ const Register = () => {
     email: "",
     pass: "",
   });
+
+  const [visipass, setvisipass] = useState(false)
 
   const [error, seterror] = useState("")
 
@@ -17,14 +22,14 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-if(!user.name || !user.email || !user.pass){
-  alert("Please Add all the details")
-} else{
-  alert("Registration successful! Redirecting to Login...");
-  navigate("/login");
-}
+    if (!user.name || !user.email || !user.pass) {
+      alert("Please Add all the details")
+    } else {
+      alert("Registration successful! Redirecting to Login...");
+      navigate("/login");
+    }
 
-  
+
     // ✅ Save user data
     localStorage.setItem("registeredUser", JSON.stringify(user));
 
@@ -74,19 +79,24 @@ if(!user.name || !user.email || !user.pass){
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div>
-            <label className="block text-gray-700 font-semibold" htmlFor="pass">
-              Password:
-            </label>
+
+          <label className="block text-gray-700 font-semibold mb-1" htmlFor="pass">
+            Password:
+          </label>
+          <div >
             <input
-              type="password"
+              type={visipass ? "text" : "password"}
               id="pass"
               value={user.pass}
               placeholder="Enter your password"
               onChange={(e) => setuser({ ...user, pass: e.target.value })}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            <button className="absolute m-2 py-2 cursor-pointer right-151" onClick={() => setvisipass(!visipass)} type="button" >{visipass ? <FaEye />
+              : <FaEyeSlash />
+            }</button>
           </div>
+
           <div>
             <button
               type="submit"
@@ -96,21 +106,11 @@ if(!user.name || !user.email || !user.pass){
             </button>
           </div>
 
-          {/* <p className="mt-4 text-gray-600">
-            Already have an account?{" "}
-            <span
-              className="text-blue-500 cursor-pointer"
-              onClick={() => navigate("/login")}
-            >
-              Login
-            </span>
-          </p> */}
 
- 
           <p className="text-gray-600 ml-10 font-bold">
             Do you have Account ? {" "}
-            <span className="text-blue-500 cursor-pointer" onClick={()=>navigate('/login ')}>
-              Login 
+            <span className="text-blue-500 cursor-pointer" onClick={() => navigate('/login ')}>
+              Login
             </span>
           </p>
 

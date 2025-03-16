@@ -56,7 +56,7 @@ const Login = () => {
             setCredentials({ ...credentials, email: e.target.value })
           }
         />
-        <label htmlFor="">Pass</label>
+        <label htmlFor="">Pass:</label>
         <input
           className="w-full p-2 border rounded"
           type="password"
